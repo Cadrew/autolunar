@@ -1,0 +1,10 @@
+{
+    "name": "B23S36",
+    "model": "life-like",
+    "birth": [2, 3],
+    "survive": [3, 6],
+    "moore": 8,
+    "dimensions": 2,
+    "states": [0, 1],
+    "BxSy": "B23S36"
+}

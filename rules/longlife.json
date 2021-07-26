@@ -1,0 +1,10 @@
+{
+    "name": "Long life",
+    "model": "life-like",
+    "birth": [3, 4, 5],
+    "survive": [5],
+    "moore": 8,
+    "dimensions": 2,
+    "states": [0, 1],
+    "BxSy": "B345S5"
+}
