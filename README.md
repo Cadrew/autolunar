@@ -1,3 +1,3 @@
 # Autolunar
 
-Autolunar is a pseudorandom number generator (PRNG) based on cellular automata.
+Autolunar is a cryptographic pseudorandom number generator (PRNG) based on cellular automata.
