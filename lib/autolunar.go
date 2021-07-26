@@ -21,14 +21,14 @@ func GetGenerator() *Autolunar {
 	}
 }
 
-// SetDefault set the default configuration
+// SetDefault sets the default configuration
 func (al *Autolunar) SetDefault() {
 	fmt.Println("[autolunar] init default")
 	al.sleep = 50
 	al.RemoveAutomatons() // todo: remove all automatons then add default automatons
 }
 
-// SetSleep allow to change the sleep value
+// SetSleep allows to change the sleep value
 func (al *Autolunar) SetSleep(sleep int) {
 	al.sleep = sleep
 }
