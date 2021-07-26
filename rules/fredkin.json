@@ -1,0 +1,8 @@
+{
+    "type": "life-like",
+    "birth": [1, 3, 5, 7],
+    "survive": [0, 2, 4, 6, 8],
+    "moore": 8,
+    "dimensions": 2,
+    "states": [0, 1]
+}
