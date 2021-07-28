@@ -11,8 +11,6 @@ type Autolunar struct {
 	automaton []*Automaton
 }
 
-var x float64 = 0
-
 func CreateGenerator() *Autolunar {
 	return &Autolunar{
 		prn: make(chan float64, 1),
@@ -64,7 +62,8 @@ func (al *Autolunar) Rand(a, b int) int {
 func (al *Autolunar) Generate() {
 	fmt.Println("[autolunar] generate")
 	for {
-		al.prn <- al.Iterate()
+		al.automaton[0].Iterate()
+		al.prn <- al.automaton[0].GetStateValue()
 		select {
 		case <- al.prn:
 			// do nothing
@@ -72,9 +71,4 @@ func (al *Autolunar) Generate() {
 			return
 		}
 	}
-}
-
-func (al *Autolunar) Iterate() float64 {
-	x += 1
-	return x
 }

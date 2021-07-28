@@ -15,5 +15,4 @@ func main() {
 		return
 	}
 	fmt.Println(al.Rand(0, 897))
-	// fmt.Println(autolunar.ReadRule("gameoflife"))
 }
