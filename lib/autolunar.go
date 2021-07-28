@@ -58,7 +58,6 @@ func (al *Autolunar) Rand(a, b int) int {
 	go al.Generate()
 	time.Sleep(time.Duration(al.sleep) * time.Millisecond)
 	prn := <-al.prn
-	fmt.Println("[autolunar] prn:", x)
 	return int(prn) % (b - a) + a
 }
 
