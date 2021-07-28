@@ -3,10 +3,10 @@ package autolunar
 type Automaton struct {
 	state chan int
 	rule  *Rule
-	seed  int
+	seed  [][]uint8
 }
 
-func CreateAutomaton(rule *Rule, seed int) *Automaton {
+func CreateAutomaton(rule *Rule, seed [][]uint8) *Automaton {
 	return &Automaton{
 		state: make(chan int, 1),
 		rule: rule,
@@ -14,8 +14,8 @@ func CreateAutomaton(rule *Rule, seed int) *Automaton {
 	}
 }
 
-func (am *Automaton) SetSeed(seed int) {
-	if (seed < 0) {
+func (am *Automaton) SetSeed(seed [][]uint8) {
+	if (len(seed) == 0) {
 		return
 	}
 	am.seed = seed
@@ -25,7 +25,7 @@ func (am *Automaton) SetRule(rule *Rule) {
 	am.rule = rule
 }
 
-func (am *Automaton) GetSeed() int {
+func (am *Automaton) GetSeed() [][]uint8 {
 	return am.seed
 }
 

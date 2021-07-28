@@ -8,12 +8,12 @@ import (
 type Autolunar struct {
 	prn       chan float64
 	sleep     int
-	automaton []Automaton
+	automaton []*Automaton
 }
 
 var x float64 = 0
 
-func GetGenerator() *Autolunar {
+func CreateGenerator() *Autolunar {
 	return &Autolunar{
 		prn: make(chan float64, 1),
 		sleep: 10,
@@ -22,10 +22,21 @@ func GetGenerator() *Autolunar {
 }
 
 // SetDefault sets the default configuration
-func (al *Autolunar) SetDefault() {
+func (al *Autolunar) SetDefault() error {
 	fmt.Println("[autolunar] init default")
 	al.sleep = 50
-	al.RemoveAutomatons() // todo: remove all automatons then add default automatons
+	al.RemoveAutomatons()
+	fredkin, err := ReadRule("fredkin")
+	if (err != nil) {
+		return err
+	}
+	amoeba, err := ReadRule("amoeba")
+	if (err != nil) {
+		return err
+	}
+	al.AddAutomaton(fredkin, nil)
+	al.AddAutomaton(amoeba, nil)
+	return nil
 }
 
 // SetSleep allows to change the sleep value
@@ -33,8 +44,9 @@ func (al *Autolunar) SetSleep(sleep int) {
 	al.sleep = sleep
 }
 
-func (al *Autolunar) AddAutomaton(dimensions int, neighbors int, seed int) {
-	// todo
+func (al *Autolunar) AddAutomaton(rule *Rule, seed [][]uint8) {
+	automaton := CreateAutomaton(rule, seed)
+	al.automaton = append(al.automaton, automaton)
 }
 
 func (al *Autolunar) RemoveAutomatons() {

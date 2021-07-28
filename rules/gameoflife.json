@@ -1,0 +1,10 @@
+{
+    "name": "Game of Life",
+    "model": "life-like",
+    "birth": [3],
+    "survive": [2, 3],
+    "moore": 8,
+    "dimensions": 2,
+    "states": [0, 1],
+    "BxSy": "B3S23"
+}

@@ -3,87 +3,93 @@ package autolunar
 import (
 	"fmt"
 	"errors"
+	"os"
+	"io/ioutil"
+	"encoding/json"
 )
 
 type Rule struct {
-	model      string
-	dimensions int
-	neighbors  int
-	birth      []int
-	survive    []int
-	states     []int
+    Name       string `json:"name"`
+    Model      string `json:"model"`
+    Birth      []int  `json:"birth"`
+    Survive    []int  `json:"survive"`
+    Neighbors  int    `json:"moore"`
+    Dimensions int    `json:"dimensions"`
+    States     []int  `json:"states"`
+    BxSy       string `json:"BxSy"`
 }
 
 func ReadRule(name string) (*Rule, error) {
 	if (name == "") {
-		return nil, errors.New(fmt.Sprintf("[autolunar] cannot create rule %s", name))
+		return nil, errors.New(fmt.Sprintf("[autolunar] cannot create empty rule"))
 	}
-	
-	return &Rule{
-		model: "",
-		dimensions: 0,
-		neighbors: 0,
-		birth: nil,
-		survive: nil,
-		states: nil,
-	}, nil
+	jsonFile, err := os.Open(fmt.Sprintf("./rules/%s.json", name))
+	if err != nil {
+		return nil, err
+	}
+	defer jsonFile.Close()
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	var rule Rule
+	json.Unmarshal(byteValue, &rule)
+	return &rule, nil
 }
 
 func CreateEmptyRule(name string) *Rule {	
 	return &Rule{
-		model: "",
-		dimensions: 0,
-		neighbors: 0,
-		birth: nil,
-		survive: nil,
-		states: nil,
+		Name: "",
+		Model: "",
+		Dimensions: 0,
+		Neighbors: 0,
+		Birth: nil,
+		Survive: nil,
+		States: nil,
 	}
 }
 
 func (r *Rule) SetDimensions(dim int) {
-	r.dimensions = dim
+	r.Dimensions = dim
 }
 
 func (r *Rule) SetNeighbors(n int) {
-	r.neighbors = n
+	r.Neighbors = n
 }
 
 func (r *Rule) SetModel(model string) {
-	r.model = model
+	r.Model = model
 }
 
 func (r *Rule) SetBirth(birth []int) {
-	r.birth = birth
+	r.Birth = birth
 }
 
 func (r *Rule) SetSurvive(survive []int) {
-	r.survive = survive
+	r.Survive = survive
 }
 
 func (r *Rule) SetStates(states []int) {
-	r.states = states
+	r.States = states
 }
 
 func (r *Rule) GetDimensions() int {
-	return r.dimensions
+	return r.Dimensions
 }
 
 func (r *Rule) GetNeighbors() int {
-	return r.neighbors
+	return r.Neighbors
 }
 
 func (r *Rule) GetModel() string {
-	return r.model
+	return r.Model
 }
 
 func (r *Rule) GetBirth() []int {
-	return r.birth
+	return r.Birth
 }
 
 func (r *Rule) GetSurvive() []int {
-	return r.survive
+	return r.Survive
 }
 
 func (r *Rule) GetStates() []int {
-	return r.states
+	return r.States
 }
