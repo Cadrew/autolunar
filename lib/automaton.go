@@ -131,11 +131,11 @@ func (am * Automaton) FindNeighboursIndex(index int) []int {
 
 // GetStateValue converts the current automaton state to a single value
 func (am *Automaton) GetStateValue() float64 {
-	value := 0
+	var value float64 = 0
 	for n := range am.units {
-		value += am.units[n].State() * n
+		value += float64(am.units[n].State()) * float64(n)
 	}
-	return float64(value)
+	return float64(value) / ROUND
 }
 
 func (am *Automaton) Display() {
