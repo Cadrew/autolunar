@@ -3,7 +3,7 @@
     "model": "life-like",
     "birth": [2, 3, 4],
     "survive": [],
-    "moore": 8,
+    "moore": 1,
     "dimensions": 2,
     "states": [0, 1],
     "BxSy": "B234S"

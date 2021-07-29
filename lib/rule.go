@@ -9,14 +9,14 @@ import (
 )
 
 type Rule struct {
-    Name       string `json:"name"`
-    Model      string `json:"model"`
-    Birth      []int  `json:"birth"`
-    Survive    []int  `json:"survive"`
-    Neighbors  int    `json:"moore"`
-    Dimensions int    `json:"dimensions"`
-    States     []int  `json:"states"`
-    BxSy       string `json:"BxSy"`
+    Name          string `json:"name"`
+    Model         string `json:"model"`
+    Birth         []int  `json:"birth"`
+    Survive       []int  `json:"survive"`
+    Neighborhood  int    `json:"moore"`
+    Dimensions    int    `json:"dimensions"`
+    States        []int  `json:"states"`
+    BxSy          string `json:"BxSy"`
 }
 
 func ReadRule(name string) (*Rule, error) {
@@ -39,7 +39,7 @@ func CreateEmptyRule(name string) *Rule {
 		Name: "",
 		Model: "",
 		Dimensions: 0,
-		Neighbors: 0,
+		Neighborhood: 0,
 		Birth: nil,
 		Survive: nil,
 		States: nil,
@@ -50,8 +50,8 @@ func (r *Rule) SetDimensions(dim int) {
 	r.Dimensions = dim
 }
 
-func (r *Rule) SetNeighbors(n int) {
-	r.Neighbors = n
+func (r *Rule) SetNeighborhood(n int) {
+	r.Neighborhood = n
 }
 
 func (r *Rule) SetModel(model string) {
@@ -74,8 +74,8 @@ func (r *Rule) GetDimensions() int {
 	return r.Dimensions
 }
 
-func (r *Rule) GetNeighbors() int {
-	return r.Neighbors
+func (r *Rule) GetNeighborhood() int {
+	return r.Neighborhood
 }
 
 func (r *Rule) GetModel() string {

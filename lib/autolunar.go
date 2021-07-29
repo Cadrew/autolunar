@@ -32,6 +32,7 @@ func (al *Autolunar) SetDefault() error {
 	if (err != nil) {
 		return err
 	}
+	// TODO: set seed
 	al.AddAutomaton(fredkin, nil)
 	al.AddAutomaton(amoeba, nil)
 	return nil
