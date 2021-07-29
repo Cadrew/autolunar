@@ -81,7 +81,7 @@ func (al *Autolunar) Rand(a, b int) int {
 	time.Sleep(time.Duration(al.sleep) * time.Millisecond)
 	prn := <-al.prn
 	al.previousRound = int((prn - float64(int64(prn))) * ROUND)
-	return int(prn) % (b - a) + a
+	return int(prn + float64(getTimestamp())) % (b - a) + a
 }
 
 // Generate iterates into the automata until the al.prn channel is read
