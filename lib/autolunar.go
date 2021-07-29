@@ -86,9 +86,7 @@ func (al *Autolunar) Rand(a, b int) int {
 
 // Generate iterates into the automata until the al.prn channel is read
 func (al *Autolunar) Generate() {
-	count := 0
 	for {
-		count++
 		automaton := al.previousRound % len(al.automaton)
 		al.automaton[automaton].Iterate()
 		al.prn <- al.automaton[automaton].GetStateValue()
@@ -96,7 +94,6 @@ func (al *Autolunar) Generate() {
 		case prn := <- al.prn:
 			al.previousRound = int((prn - float64(int64(prn))) * ROUND)
 		default:
-			fmt.Println("Iterations:", count)
 			return
 		}
 	}

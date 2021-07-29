@@ -8,8 +8,6 @@ TBD
 
 ### Build
 
-Compatible Windows, Linux and MacOS.
-
 ```
 go build
 ```
@@ -21,3 +19,4 @@ go build
 - Read seeds from CSV
 - Adjust default settings
 - Optimize execution
+- Write docs & readme

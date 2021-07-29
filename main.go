@@ -14,5 +14,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	// generate a number between 0 and 50
 	fmt.Println("Random generated number:", al.Rand(0, 50))
 }
