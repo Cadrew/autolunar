@@ -18,5 +18,6 @@ go build
 
 - Make output tests to check if this is cryptographic
 - Find good seeds
+- Read seeds from CSV
 - Adjust default settings
 - Optimize execution
