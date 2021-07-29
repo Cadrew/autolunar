@@ -70,8 +70,6 @@ func (am *Automaton) Reset() {
 
 // Iterate iterates according to the rules
 func (am *Automaton) Iterate() {
-	// am.Display()
-	// TODO: use json rules and not game of life rules
 	new_units := am.units
 	for n := range am.units {
 		neighbours := am.FindNeighboursIndex(n)
@@ -82,11 +80,13 @@ func (am *Automaton) Iterate() {
 			}
 		}
 		if am.units[n].State() == 1 {
-			if ncount < 2 || ncount > 3 {
+			// death
+			if !contains(am.rule.GetSurvive(), ncount) {
 				new_units[n].Set(0)
 			}
 		} else {
-			if ncount == 3 {
+			// birth
+			if contains(am.rule.GetBirth(), ncount) {
 				new_units[n].Set(1)
 			}
 		}
