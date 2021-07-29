@@ -71,6 +71,7 @@ func (am *Automaton) Iterate() {
 	if (am.GetStateValue() <= 0) {
 		return
 	}
+	// TODO: use json rules and not game of life rules
 	for n := range am.units {
 		neighbours := am.FindNeighboursIndex(n)
 		ncount := 0
@@ -96,27 +97,32 @@ func (am * Automaton) FindNeighboursIndex(index int) []int {
 	currentX, currentY := am.units[index].XY()
 	var neighbours []int
 	for i := 1; i <= moore; i++ {
-		for n := range am.units {
-			x, y := am.units[n].XY()
-			if (x == currentX && y == currentY - i) {
-				neighbours = append(neighbours, n)
-			} else if (x == currentX && y == currentY + i) {
-				neighbours = append(neighbours, n)
-			} else if (x == currentX - i && y == currentY) {
-				neighbours = append(neighbours, n)
-			} else if (x == currentX + i && y == currentY) {
-				neighbours = append(neighbours, n)
-			} else if (x == currentX - i && y == currentY - i) {
-				neighbours = append(neighbours, n)
-			} else if (x == currentX - i && y == currentY + i) {
-				neighbours = append(neighbours, n)
-			} else if (x == currentX + i && y == currentY + i) {
-				neighbours = append(neighbours, n)
-			} else if (x == currentX + i && y == currentY - i) {
-				neighbours = append(neighbours, n)
-			}
+		if (((currentY - i) * GRID_SIZE) + currentX < 100 && ((currentY - i) * GRID_SIZE) + currentX >= 0) {
+			neighbours = append(neighbours, ((currentY - i) * GRID_SIZE) + currentX)
+		}
+		if (((currentY + i) * GRID_SIZE) + currentX < 100 && ((currentY + i) * GRID_SIZE) + currentX >= 0) {
+			neighbours = append(neighbours, ((currentY + i) * GRID_SIZE) + currentX)
+		}
+		if ((currentY * GRID_SIZE) + currentX - i < 100 && (currentY * GRID_SIZE) + currentX - i >= 0) {
+			neighbours = append(neighbours, (currentY * GRID_SIZE) + currentX - i)
+		}
+		if ((currentY * GRID_SIZE) + currentX + i < 100 && (currentY * GRID_SIZE) + currentX + i >= 0) {
+			neighbours = append(neighbours, (currentY * GRID_SIZE) + currentX + i)
+		}
+		if (((currentY - i) * GRID_SIZE) + currentX - i < 100 && ((currentY - i) * GRID_SIZE) + currentX - i >= 0) {
+			neighbours = append(neighbours, ((currentY - i) * GRID_SIZE) + currentX - i)
+		}
+		if (((currentY + i) * GRID_SIZE) + currentX - i < 100 && ((currentY + i) * GRID_SIZE) + currentX - i >= 0) {
+			neighbours = append(neighbours, ((currentY + i) * GRID_SIZE) + currentX - i)
+		}
+		if (((currentY + i) * GRID_SIZE) + currentX + i < 100 && ((currentY + i) * GRID_SIZE) + currentX + i >= 0) {
+			neighbours = append(neighbours, ((currentY + i) * GRID_SIZE) + currentX + i)
+		}
+		if (((currentY - i) * GRID_SIZE) + currentX + i < 100 && ((currentY - i) * GRID_SIZE) + currentX + i >= 0) {
+			neighbours = append(neighbours, ((currentY - i) * GRID_SIZE) + currentX + i)
 		}
 	}
+
 	return neighbours
 }
 
