@@ -1,5 +1,7 @@
 package autolunar
 
+import "fmt"
+
 type Automaton struct {
 	units []*Cellular
 	rule  *Rule
@@ -19,7 +21,7 @@ func CreateAutomaton(rule *Rule, seed [][]uint8) *Automaton {
 		}
 	}
 	for _, xy := range seed {
-		index := (xy[1] * GRID_SIZE) + xy[0]
+		var index int64 = (int64(xy[1]) * int64(GRID_SIZE)) + int64(xy[0])
 		units[index].Set(1)
 	}
 	return &Automaton{
@@ -68,10 +70,9 @@ func (am *Automaton) Reset() {
 
 // Iterate iterates according to the rules
 func (am *Automaton) Iterate() {
-	if (am.GetStateValue() <= 0) {
-		return
-	}
+	// am.Display()
 	// TODO: use json rules and not game of life rules
+	new_units := am.units
 	for n := range am.units {
 		neighbours := am.FindNeighboursIndex(n)
 		ncount := 0
@@ -82,43 +83,45 @@ func (am *Automaton) Iterate() {
 		}
 		if am.units[n].State() == 1 {
 			if ncount < 2 || ncount > 3 {
-				am.units[n].Set(0)
+				new_units[n].Set(0)
 			}
 		} else {
 			if ncount == 3 {
-				am.units[n].Set(1)
+				new_units[n].Set(1)
 			}
 		}
 	}
+	am.units = new_units
 }
 
+// FindNeighboursIndex returns the index of all the neighbours depending on moore neighborhood
 func (am * Automaton) FindNeighboursIndex(index int) []int {
 	moore := am.rule.GetNeighborhood()
 	currentX, currentY := am.units[index].XY()
 	var neighbours []int
 	for i := 1; i <= moore; i++ {
-		if (((currentY - i) * GRID_SIZE) + currentX < GRID_SIZE && ((currentY - i) * GRID_SIZE) + currentX >= 0) {
+		if (currentY - i < GRID_SIZE && currentX < GRID_SIZE && currentY - i >= 0 && currentX >= 0) {
 			neighbours = append(neighbours, ((currentY - i) * GRID_SIZE) + currentX)
 		}
-		if (((currentY + i) * GRID_SIZE) + currentX < GRID_SIZE && ((currentY + i) * GRID_SIZE) + currentX >= 0) {
+		if (currentY + i < GRID_SIZE && currentX < GRID_SIZE && currentY + i >= 0 && currentX >= 0) {
 			neighbours = append(neighbours, ((currentY + i) * GRID_SIZE) + currentX)
 		}
-		if ((currentY * GRID_SIZE) + currentX - i < GRID_SIZE && (currentY * GRID_SIZE) + currentX - i >= 0) {
+		if (currentY < GRID_SIZE && currentX - i < GRID_SIZE && currentY >= 0 && currentX - i >= 0) {
 			neighbours = append(neighbours, (currentY * GRID_SIZE) + currentX - i)
 		}
-		if ((currentY * GRID_SIZE) + currentX + i < GRID_SIZE && (currentY * GRID_SIZE) + currentX + i >= 0) {
+		if (currentY < GRID_SIZE && currentX + i < GRID_SIZE && currentY >= 0 && currentX + i >= 0) {
 			neighbours = append(neighbours, (currentY * GRID_SIZE) + currentX + i)
 		}
-		if (((currentY - i) * GRID_SIZE) + currentX - i < GRID_SIZE && ((currentY - i) * GRID_SIZE) + currentX - i >= 0) {
+		if (currentY - i < GRID_SIZE && currentX - i < GRID_SIZE && currentY - i >= 0 && currentX - i >= 0) {
 			neighbours = append(neighbours, ((currentY - i) * GRID_SIZE) + currentX - i)
 		}
-		if (((currentY + i) * GRID_SIZE) + currentX - i < GRID_SIZE && ((currentY + i) * GRID_SIZE) + currentX - i >= 0) {
+		if (currentY + i < GRID_SIZE && currentX - i < GRID_SIZE && currentY + i >= 0 && currentX - i >= 0) {
 			neighbours = append(neighbours, ((currentY + i) * GRID_SIZE) + currentX - i)
 		}
-		if (((currentY + i) * GRID_SIZE) + currentX + i < GRID_SIZE && ((currentY + i) * GRID_SIZE) + currentX + i >= 0) {
+		if (currentY + i < GRID_SIZE && currentX + i < GRID_SIZE && currentY + i >= 0 && currentX + i >= 0) {
 			neighbours = append(neighbours, ((currentY + i) * GRID_SIZE) + currentX + i)
 		}
-		if (((currentY - i) * GRID_SIZE) + currentX + i < GRID_SIZE && ((currentY - i) * GRID_SIZE) + currentX + i >= 0) {
+		if (currentY - i < GRID_SIZE && currentX + i < GRID_SIZE && currentY - i >= 0 && currentX + i >= 0) {
 			neighbours = append(neighbours, ((currentY - i) * GRID_SIZE) + currentX + i)
 		}
 	}
@@ -127,7 +130,19 @@ func (am * Automaton) FindNeighboursIndex(index int) []int {
 }
 
 // GetStateValue converts the current automaton state to a single value
-func (am * Automaton) GetStateValue() float64 {
-	// TODO
-	return 1
+func (am *Automaton) GetStateValue() float64 {
+	value := 0
+	for n := range am.units {
+		value += am.units[n].State() * n
+	}
+	return float64(value)
+}
+
+func (am *Automaton) Display() {
+	for i := 0; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE {		
+		for j := 0; j < GRID_SIZE; j++ {
+			fmt.Print(am.units[i + j].State())
+		}
+		fmt.Println()
+	}
 }

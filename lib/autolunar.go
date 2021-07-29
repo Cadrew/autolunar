@@ -73,6 +73,7 @@ func (al *Autolunar) Generate() {
 	fmt.Println("[autolunar] generate")
 	count := 0
 	for {
+		// alternate between automata
 		al.automaton[0].Iterate()
 		count++
 		al.prn <- al.automaton[0].GetStateValue()
@@ -80,7 +81,7 @@ func (al *Autolunar) Generate() {
 		case <- al.prn:
 			// do nothing
 		default:
-			fmt.Println(count)
+			fmt.Println("Iterations:", count)
 			return
 		}
 	}

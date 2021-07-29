@@ -14,5 +14,5 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(al.Rand(0, 897))
+	fmt.Println("Random generated number:", al.Rand(0, 897))
 }
