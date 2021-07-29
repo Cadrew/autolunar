@@ -68,7 +68,7 @@ func (am *Automaton) Reset() {
 	am.units = units
 }
 
-// Iterate iterates according to the rules
+// Iterate iterates accordingly to the rules
 func (am *Automaton) Iterate() {
 	new_units := am.units
 	for n := range am.units {
