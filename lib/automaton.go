@@ -97,28 +97,28 @@ func (am * Automaton) FindNeighboursIndex(index int) []int {
 	currentX, currentY := am.units[index].XY()
 	var neighbours []int
 	for i := 1; i <= moore; i++ {
-		if (((currentY - i) * GRID_SIZE) + currentX < 100 && ((currentY - i) * GRID_SIZE) + currentX >= 0) {
+		if (((currentY - i) * GRID_SIZE) + currentX < GRID_SIZE && ((currentY - i) * GRID_SIZE) + currentX >= 0) {
 			neighbours = append(neighbours, ((currentY - i) * GRID_SIZE) + currentX)
 		}
-		if (((currentY + i) * GRID_SIZE) + currentX < 100 && ((currentY + i) * GRID_SIZE) + currentX >= 0) {
+		if (((currentY + i) * GRID_SIZE) + currentX < GRID_SIZE && ((currentY + i) * GRID_SIZE) + currentX >= 0) {
 			neighbours = append(neighbours, ((currentY + i) * GRID_SIZE) + currentX)
 		}
-		if ((currentY * GRID_SIZE) + currentX - i < 100 && (currentY * GRID_SIZE) + currentX - i >= 0) {
+		if ((currentY * GRID_SIZE) + currentX - i < GRID_SIZE && (currentY * GRID_SIZE) + currentX - i >= 0) {
 			neighbours = append(neighbours, (currentY * GRID_SIZE) + currentX - i)
 		}
-		if ((currentY * GRID_SIZE) + currentX + i < 100 && (currentY * GRID_SIZE) + currentX + i >= 0) {
+		if ((currentY * GRID_SIZE) + currentX + i < GRID_SIZE && (currentY * GRID_SIZE) + currentX + i >= 0) {
 			neighbours = append(neighbours, (currentY * GRID_SIZE) + currentX + i)
 		}
-		if (((currentY - i) * GRID_SIZE) + currentX - i < 100 && ((currentY - i) * GRID_SIZE) + currentX - i >= 0) {
+		if (((currentY - i) * GRID_SIZE) + currentX - i < GRID_SIZE && ((currentY - i) * GRID_SIZE) + currentX - i >= 0) {
 			neighbours = append(neighbours, ((currentY - i) * GRID_SIZE) + currentX - i)
 		}
-		if (((currentY + i) * GRID_SIZE) + currentX - i < 100 && ((currentY + i) * GRID_SIZE) + currentX - i >= 0) {
+		if (((currentY + i) * GRID_SIZE) + currentX - i < GRID_SIZE && ((currentY + i) * GRID_SIZE) + currentX - i >= 0) {
 			neighbours = append(neighbours, ((currentY + i) * GRID_SIZE) + currentX - i)
 		}
-		if (((currentY + i) * GRID_SIZE) + currentX + i < 100 && ((currentY + i) * GRID_SIZE) + currentX + i >= 0) {
+		if (((currentY + i) * GRID_SIZE) + currentX + i < GRID_SIZE && ((currentY + i) * GRID_SIZE) + currentX + i >= 0) {
 			neighbours = append(neighbours, ((currentY + i) * GRID_SIZE) + currentX + i)
 		}
-		if (((currentY - i) * GRID_SIZE) + currentX + i < 100 && ((currentY - i) * GRID_SIZE) + currentX + i >= 0) {
+		if (((currentY - i) * GRID_SIZE) + currentX + i < GRID_SIZE && ((currentY - i) * GRID_SIZE) + currentX + i >= 0) {
 			neighbours = append(neighbours, ((currentY - i) * GRID_SIZE) + currentX + i)
 		}
 	}
