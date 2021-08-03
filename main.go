@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"bufio"
+	"strconv"
 
 	autolunar "./lib"
 )
@@ -14,6 +17,25 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	// generate a number between 0 and 50
-	fmt.Println("Random generated number:", al.Rand(0, 50))
+	// generate a number
+	RNG := make([]int, 1000)
+	for i := 0; i < 1000; i++ {
+		RNG[i] = al.Rand(0, 100000)
+	}
+	fmt.Println("Random generated number:", RNG)
+ 
+	file, err := os.OpenFile("numbers.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+ 
+	if err != nil {
+		fmt.Printf("failed creating file: %s", err)
+	}
+ 
+	datawriter := bufio.NewWriter(file)
+ 
+	for _, data := range RNG {
+		_, _ = datawriter.WriteString(strconv.Itoa(data) + "\n")
+	}
+ 
+	datawriter.Flush()
+	file.Close()
 }

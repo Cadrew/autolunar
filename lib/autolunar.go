@@ -37,8 +37,6 @@ func (al *Autolunar) SetDefault() error {
 	if (err != nil) {
 		return err
 	}
-	// TODO: set seed
-	
 	al.AddAutomaton(fredkin, [][]uint8{
 		{1, 5}, {1, 6}, {2, 5}, {2, 6},
 		{11, 5}, {11, 6}, {11, 7}, {12, 4}, {12, 8}, {13, 3},
