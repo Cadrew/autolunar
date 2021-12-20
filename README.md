@@ -18,6 +18,8 @@ These rules are based on the BxSy notation.
 All the current examples are 2D cellular automata rules, but it is possible to create rules in any dimension.
 The rule file must be in JSON format.
 
+| property   | description                                          |
+|------------|------------------------------------------------------|
 | name       | `string` - name of the rule (e.g. "Game of Life")    |
 | model      | `string` - model type (e.g. "life-like)              |
 | birth      | `array` - values for which a new cell is born        |
