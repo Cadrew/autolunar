@@ -19,21 +19,13 @@ All the current examples are 2D cellular automata rules, but it is possible to c
 The rule file must be in JSON format.
 
 | name       | `string` - name of the rule (e.g. "Game of Life")    |
-|------------|------------------------------------------------------|
 | model      | `string` - model type (e.g. "life-like)              |
-|------------|------------------------------------------------------|
 | birth      | `array` - values for which a new cell is born        |
-|------------|------------------------------------------------------|
 | survive    | `array` - values for which a cell survive            |
-|------------|------------------------------------------------------|
 | moore      | `number` - moore neighborhood                        |
-|------------|------------------------------------------------------|
 | dimensions | `number` - number of dimensions                      |
-|------------|------------------------------------------------------|
 | states     | `array` - possible values for a cell (e.g. `[0, 1]`) |
-|------------|------------------------------------------------------|
 | BxSy       | `string` - BxSy name (e.g. B3S23)                    |
-|------------|------------------------------------------------------|
 
 In the code, if the file is called `my_custom_rule.json` it is then possible to add this new rule in the generator in this way:
 ```golang
