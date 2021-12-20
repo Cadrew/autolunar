@@ -12,7 +12,7 @@ If several cellular automata have been declared, the generator will switch betwe
 
 ### Rules
 
-Inside the `rules` folder, you can add as many rules as you want.
+Inside the `rules` directory, you can add as many rules as you want.
 These rules are based on the BxSy notation. 
 
 All the current examples are 2D cellular automata rules, but it is possible to create rules in any dimension.
@@ -36,8 +36,26 @@ if (err != nil) {
     return err
 }
 
-// add custom automaton
+// add custom automaton rule
 al.AddAutomaton(automaton, <your_seed>)
+```
+
+### Seeds
+
+Seeds are located inside the `seeds` directory. You can add as many seeds you want.
+
+The seeds can be used for any type of cellular automaton as long as they respect the number of dimensions.
+Seed files are simple CSV. The delimiter must be a comma `,`.
+
+In the code, if the file is called `my_custom_seed.csv` it is then possible to add this new seed in the generator in this way:
+```golang
+seed, err := ReadSeed("my_custom_seed")
+if (err != nil) {
+    return err
+}
+
+// add custom seed
+al.AddAutomaton(<your_automaton>, seed)
 ```
 
 ### Usage
@@ -69,19 +87,15 @@ automaton, err := ReadRule("fredkin") // example with fredkin, you can use the r
 if (err != nil) {
     return err
 }
+gun, err := ReadSeed("gun") // example with gun, you can use the seed you want
+if err != nil {
+    return err
+}
 
 // add automaton with custom seed
-al.AddAutomaton(automaton, [][]uint8{
-    {1, 5}, {1, 6}, {2, 5}, {2, 6},
-    {11, 5}, {11, 6}, {11, 7}, {12, 4}, {12, 8}, {13, 3},
-    {13, 9}, {14, 3}, {14, 9}, {15, 6}, {16, 4}, {16, 8},
-    {17, 5}, {17, 6}, {17, 7}, {18, 6},
-    {21, 3}, {21, 4}, {21, 5}, {22, 3}, {22, 4}, {22, 5},
-    {23, 2}, {23, 6}, {25, 1}, {25, 2}, {25, 6}, {25, 7},
-    {35, 3}, {35, 4}, {36, 3}, {36, 4},
-})
 // you can add as many automaton you want
 // the more automata you add, the better will be the result
+al.AddAutomaton(fredkin, gun)
 
 // generate an int between 0 and 100
 rng := al.Rand(0, 100)
@@ -97,6 +111,5 @@ go build
 
 - Make output tests to check if this is cryptographic
 - Find good seeds
-- Read seeds from CSV
 - Adjust default settings
 - Optimize execution
