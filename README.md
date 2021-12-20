@@ -2,7 +2,7 @@
 
 Autolunar is a pseudorandom number generator (PRNG) based on cellular automata.
 
-### How does it work?
+## How does it work?
 
 In Autolunar, it is possible to configure one or more cellular automatons.
 These cellular automata are defined by rules in the `rules` folder. It is possible to add as many rules as you want (see the "Rules" section for more explanations).
@@ -41,8 +41,6 @@ al.AddAutomaton(automaton, <your_seed>)
 ```
 
 ### Usage
-
-Import:
 
 ```golang
 import autolunar "github.com/Cadrew/autolunar/lib"
@@ -89,13 +87,13 @@ al.AddAutomaton(automaton, [][]uint8{
 rng := al.Rand(0, 100)
 ```
 
-### Build
+## Build
 
 ```
 go build
 ```
 
-### TODOs
+## TODOs
 
 - Make output tests to check if this is cryptographic
 - Find good seeds
