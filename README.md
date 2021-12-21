@@ -10,6 +10,16 @@ These cellular automata are defined by rules in the `rules` folder. It is possib
 The generator then relies on seeds (examples available in the `seeds` folder) to execute the cellular automaton.
 If several cellular automata have been declared, the generator will switch between the different automata randomly. At the end of the execution (defined by a sleep time in ms), the generator returns a value generated from the current state of the last cellular automaton that was executed.
 
+Currently, only 2D cellular automata work.
+To generate a number from a state of the cellular automaton, we proceed as follows:
+- The grid of the automaton is 64x64 cells.
+- Each cell has either the value 0 or the value 1.
+- We create blocks of 8 bits (8 cells). There are thus 8 blocks of 8 bits.
+- For each block, we calculate the power of 2 of the corresponding cell multiplied by the value of its cell.
+- Finally, we calculate the final value by doing the XOR operation between all the blocks.
+
+This process is the application of the one described in the paper available [here](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.759.6207&rep=rep1&type=pdf).
+
 ### Rules
 
 Inside the `rules` directory, you can add as many rules as you want.
@@ -39,6 +49,8 @@ if (err != nil) {
 // add custom automaton rule
 al.AddAutomaton(automaton, <your_seed>)
 ```
+
+The default rule for the generator is `fredkin`. The reason for this is that this rule has the highest entropy rate. Thus, the generated chaos value is much larger with this generator, which allows to produce numbers that look statistically as random as possible.
 
 ### Seeds
 
