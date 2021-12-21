@@ -18,7 +18,7 @@ func main() {
 		return
 	}
 	// generate a number
-	RNG := make([]int, 1000)
+	RNG := make([]int64, 1000)
 	for i := 0; i < 1000; i++ {
 		RNG[i] = al.Rand(0, 100000)
 	}
@@ -33,7 +33,7 @@ func main() {
 	datawriter := bufio.NewWriter(file)
 
 	for _, data := range RNG {
-		_, _ = datawriter.WriteString(strconv.Itoa(data) + "\n")
+		_, _ = datawriter.WriteString(strconv.Itoa(int(data)) + "\n")
 	}
 
 	datawriter.Flush()
