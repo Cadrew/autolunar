@@ -64,7 +64,7 @@ al.AddAutomaton(<your_automaton>, seed)
 import autolunar "github.com/Cadrew/autolunar/lib"
 ```
 
-Simple usage use default settings:
+Simple usage with default settings:
 
 ```golang
 al := autolunar.CreateGenerator()
@@ -115,8 +115,8 @@ It should be noted that the results of the tests depend strongly on the cellular
 
 ### DIEHARD
 
-In its default configuration (using fredkin and amoeba automata), the generator has passed the DIEHARD test, see the report diarhard.txt in the `stats` directory.
-To pass this test, 10000 random numbers were generated in a file `numbers.txt`, then the file was tested with dieharder on Linux.
+<!-- In its default configuration (using fredkin and amoeba automata), the generator has passed the DIEHARD test, see the report diarhard.txt in the `stats` directory.
+To pass this test, 35M random numbers were generated in a file `numbers.txt`. The file was tested with [dieharder](https://linux.die.net/man/1/dieharder) on Linux. -->
 
 To install dieharder:
 ```
@@ -125,12 +125,14 @@ sudo apt-get install -y dieharder
 
 The command to run the tests:
 ```
-dieharder -a -f numbers.txt
+dieharder -g 202 -f numbers.txt -a
 ```
+
+To understand the DIEHARD report, it is mainly necessary to read the name of the test that was passed in the `test_name` column as well as the `p-value` that was calculated.
+If the `p-value` is exactly 0 or exactly 1, then the test is considered to have failed, otherwise it is considered to have passed.
 
 ## TODOs
 
-- Make output tests to check if this is cryptographic
 - Find good seeds
 - Adjust default settings
 - Optimize execution
