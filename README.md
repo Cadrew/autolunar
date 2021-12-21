@@ -85,7 +85,7 @@ if err != nil {
     fmt.Println(err)
     return
 }
-// generate an int between 0 and 100
+// generate an int64 between 0 and 100
 rng := al.Rand(0, 100)
 ```
 
@@ -109,7 +109,7 @@ if err != nil {
 // the more automata you add, the better will be the result
 al.AddAutomaton(fredkin, gun)
 
-// generate an int between 0 and 100
+// generate an int64 between 0 and 100
 rng := al.Rand(0, 100)
 ```
 
