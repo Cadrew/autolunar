@@ -107,6 +107,27 @@ rng := al.Rand(0, 100)
 go build
 ```
 
+## Statistical tests
+
+In order to determine if the generator is a cryptographic generator, it needs to pass statistical tests.
+In the `stats` directory, there are statistical reports for each of the tests.
+It should be noted that the results of the tests depend strongly on the cellular automata used and the seeds.
+
+### DIEHARD
+
+In its default configuration (using fredkin and amoeba automata), the generator has passed the DIEHARD test, see the report diarhard.txt in the `stats` directory.
+To pass this test, 10000 random numbers were generated in a file `numbers.txt`, then the file was tested with dieharder on Linux.
+
+To install dieharder:
+```
+sudo apt-get install -y dieharder
+```
+
+The command to run the tests:
+```
+dieharder -a -f numbers.txt
+```
+
 ## TODOs
 
 - Make output tests to check if this is cryptographic
