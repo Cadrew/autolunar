@@ -71,15 +71,15 @@ func (al *Autolunar) RemoveAutomata() {
 
 // Rand returns the pseudo random number
 func (al *Autolunar) Rand(a, b int) int64 {
-	go al.Generate()
+	go al.generate()
 	time.Sleep(time.Duration(al.sleep) * time.Millisecond)
 	prn := <-al.prn
 	al.previousRound = int((prn - float64(int64(prn))) * ROUND)
 	return int64(prn+float64(getTimestamp())) % int64((b-a)+a)
 }
 
-// Generate iterates into the automata until the al.prn channel is read
-func (al *Autolunar) Generate() {
+// generate iterates into the automata until the al.prn channel is read
+func (al *Autolunar) generate() {
 	for {
 		automaton := al.previousRound % len(al.automaton)
 		al.automaton[automaton].Iterate()
