@@ -18,6 +18,11 @@ To generate a number from a state of the cellular automaton, we proceed as follo
 - For each block, we calculate the power of 2 of the corresponding cell multiplied by the value of its cell.
 - Finally, we calculate the final value by doing the XOR operation between all the blocks.
 
+The sleep time allows the generator to reproduce this operation as many time as possible while the program is sleeping.
+This means that for a given sleep time, the generator will iterate as many times as possible in the cellular automata before generating an output digit. This allows to integrate additional entropy by making the generator depend on the power of the machine. This adds robustness in terms of security, so that it is not possible to predict the output of the generator in advance.
+
+Finally, before returning the value, we add an additional entropy by integrating the current time in ms in the computation. By doing this, it also avoids that the generator produces the same numbers in output for a specific configuration, even if we run the program several times.
+
 This process is the application of the one described in the paper available [here](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.759.6207&rep=rep1&type=pdf).
 
 ### Rules
@@ -94,7 +99,7 @@ You can use your custom settings:
 ```golang
 al := autolunar.CreateGenerator()
 // the larger the number, the longer the execution but the numbers generated will be much more random (default is 10)
-al.sleep = 100 // in ms
+al.sleep = 100 // in ms, you can put it to 0 if you want to prioritize speed over safety
 automaton, err := ReadRule("fredkin") // example with fredkin, you can use the rules you want
 if (err != nil) {
     return err
@@ -125,6 +130,8 @@ In order to determine if the generator is a cryptographic generator, it needs to
 In the `stats` directory, there are statistical reports for each of the tests.
 It should be noted that the results of the tests depend strongly on the cellular automata used and the seeds.
 
+Since the configuration of the generator affects the test results, there are several `config` folders in which the results obtained for a given configuration are described.
+
 ### DIEHARD
 
 <!-- In its default configuration (using fredkin and amoeba automata), the generator has passed the DIEHARD test, see the report diarhard.txt in the `stats` directory.
@@ -142,9 +149,3 @@ dieharder -g 202 -f numbers.txt -a
 
 To understand the DIEHARD report, it is mainly necessary to read the name of the test that was passed in the `test_name` column as well as the `p-value` that was calculated.
 If the `p-value` is exactly 0 or exactly 1, then the test is considered to have failed, otherwise it is considered to have passed.
-
-## TODOs
-
-- Find good seeds
-- Adjust default settings
-- Optimize execution
